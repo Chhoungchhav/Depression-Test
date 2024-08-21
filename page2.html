@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STSQs Questions</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>STSQs Questions</h1>
+    </header>
+    <div class="container">
+        
+        <form id="surveyForm2" action="result.html" method="GET" onsubmit="return calculateFinalScore()">
+            
+            <div class="question">
+                <p>1. What time do you usually go to bed?</p>
+                <input type="time" name="q3" required>
+            </div>
+            
+            <div class="question">
+                <p>2. How long does it take you to fall asleep on average?</p>
+                <input type="number" name="q2" min="0" step="1" required>
+                <span>minutes</span>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

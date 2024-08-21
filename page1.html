@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey - Page 1</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>STSQs Questions</h1>
+    </header>
+    <div class="container">
+        <h1>Survey - Page 1</h1>
+        <form id="surveyForm1" action="page2.html" method="GET" onsubmit="return storeAnswers()">
+            <div class="question">
+                <p>1. What is your favorite color?</p>
+                <label><input type="radio" name="q1" value="1" required> Red</label>
+                <label><input type="radio" name="q1" value="2"> Blue</label>
+                <label><input type="radio" name="q1" value="3"> Green</label>
+                <label><input type="radio" name="q1" value="4"> Yellow</label>
+            </div>
+            <button type="submit">Next</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
