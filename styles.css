@@ -7,46 +7,65 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 98.8%;
 }
 
 header {
     background-color: #1C8EE9;
     color: white;
-    width: 98.4%;
+    width: 100%;
     padding: 20px;
     text-align: center;
 }
 
 .container {
     background: #F4F7FC;
-    margin: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 35px;
+    margin-bottom: 35px;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 90%;
+    width: 95%;
 }
 
 h1 {
     text-align: center;
 }
 
-.question {
-    margin-bottom: 15px;
+p {
+    font-size: 20px;
+    margin: 0px;
+    margin-bottom: 12px;
+}
+
+span {
+    font-size: 20px;
+}
+
+form {
+    width: 94%;
 }
 
 label {
+    font-size: 20px;
     display: block;
     margin-bottom: 5px;
 }
 
 button {
     background-color: #1C8EE9;
+    height: 45px;
+    font-size: 20px;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 100%;
+    width: 30%;
+    display: block;
+    margin: 0 auto;
 }
 
 button:hover {
@@ -63,4 +82,44 @@ button:hover {
     text-align: center;
     width: 98.4%;
     text-decoration: none;
+}
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+.row {
+    margin-bottom: 5px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.column-big {
+    float: left;
+}
+
+.progress-bar {
+    background: #e0e0e0;
+    border-radius: 25px;
+    overflow: hidden;
+    margin: 10px auto; /* This centers the progress bar */
+    width: 40%;
+}
+
+
+.progress-1 {
+    height: 25px;
+    width: 33%;
+    background-color: #007bff;
+}
+
+.progress-2 {
+    height: 25px;
+    width: 66%;
+    background-color: #007bff;
 }

@@ -8,21 +8,195 @@
 </head>
 <body>
     <header>
-        <h1>STSQs Questions</h1>
+        <h1>PHQ-9 Questions</h1>
+        <div class="progress-bar">
+            <div class="progress-1"></div>
+        </div>
     </header>
-    <div class="container">
-        <h1>Survey - Page 1</h1>
-        <form id="surveyForm1" action="page2.html" method="GET" onsubmit="return storeAnswers()">
-            <div class="question">
-                <p>1. What is your favorite color?</p>
-                <label><input type="radio" name="q1" value="1" required> Red</label>
-                <label><input type="radio" name="q1" value="2"> Blue</label>
-                <label><input type="radio" name="q1" value="3"> Green</label>
-                <label><input type="radio" name="q1" value="4"> Yellow</label>
+    <form id="surveyForm1" action="page2.html" method="GET" onsubmit="return storeAnswers()">
+        <div class="container">
+            <p>Q1: Little interest or pleasure in doing things</p>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q1" value="0" required> Not at all</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q1" value="1"> Several days</label>
+                </div>
             </div>
-            <button type="submit">Next</button>
-        </form>
-    </div>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q1" value="2" required> More than half the days</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q1" value="3"> Nearly every day</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <p>Q2: Feeling down, depressed, or hopeless</p>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q2" value="0" required> Not at all</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q2" value="1"> Several days</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q2" value="2" required> More than half the days</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q2" value="3"> Nearly every day</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <p>Q3:  Trouble falling or staying asleep, or sleeping too much</p>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q3" value="0" required> Not at all</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q3" value="1"> Several days</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q3" value="2" required> More than half the days</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q3" value="3"> Nearly every day</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <p>Q4: Feeling tired or having little energy</p>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q4" value="0" required> Not at all</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q4" value="1"> Several days</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q4" value="2" required> More than half the days</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q4" value="3"> Nearly every day</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <p>Q5:  Poor appetite or overeating</p>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q5" value="0" required> Not at all</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q5" value="1"> Several days</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q5" value="2" required> More than half the days</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q5" value="3"> Nearly every day</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <p>Q6:  Feeling bad about yourself — or that you are a failure or have let yourself or your family down</p>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q6" value="0" required> Not at all</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q6" value="1"> Several days</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q6" value="2" required> More than half the days</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q6" value="3"> Nearly every day</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <p>Q7:  Trouble concentrating on things, such as reading the newspaper or watching television</p>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q7" value="0" required> Not at all</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q7" value="1"> Several days</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q7" value="2" required> More than half the days</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q7" value="3"> Nearly every day</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <p>Q8:  Moving or speaking so slowly that other people could have noticed? Or the opposite — being so fidgety or restless that you have been moving around a lot more than usual</p>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q8" value="0" required> Not at all</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q8" value="1"> Several days</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q8" value="2" required> More than half the days</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q8" value="3"> Nearly every day</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <p>Q9:  Thoughts that you would be better off dead or of hurting yourself in some way</p>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q9" value="0" required> Not at all</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q9" value="1"> Several days</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label><input type="radio" name="q9" value="2" required> More than half the days</label>
+                </div>
+                <div class="column">
+                    <label><input type="radio" name="q9" value="3"> Nearly every day</label>
+                </div>
+            </div>
+        </div>
+        
+        <button type="submit">Next</button>
+    </form>
+    <p></p>
     <script src="script.js"></script>
 </body>
 </html>
