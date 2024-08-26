@@ -43,3 +43,4 @@ function calculateFinalScore() {
 
     return false; // Prevent form submission to avoid page reload
 }
+

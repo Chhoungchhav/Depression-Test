@@ -11,7 +11,7 @@ body {
 }
 
 header {
-    background-color: #1C8EE9;
+    background-color: #6291C5cc;
     color: white;
     width: 100%;
     padding: 20px;
@@ -19,14 +19,13 @@ header {
 }
 
 .container {
-    background: #F4F7FC;
+    background: #6291C566;
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 35px;
     margin-bottom: 35px;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 95%;
 }
 
@@ -55,7 +54,7 @@ label {
 }
 
 button {
-    background-color: #1C8EE9;
+    background-color: #6D7CB4BF;
     height: 45px;
     font-size: 20px;
     color: white;
@@ -69,18 +68,20 @@ button {
 }
 
 button:hover {
-    background-color: #1C8EE9;
+    background-color: #6D7CB4;
 }
 
 .start-button{
     display: block;
-    background-color: #1C8EE9;
+    background-color: #6D7CB4;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     text-align: center;
-    width: 98.4%;
+    width: 15%;
+    display: block;
+    margin: 0 auto;
     text-decoration: none;
 }
 
@@ -115,11 +116,21 @@ button:hover {
 .progress-1 {
     height: 25px;
     width: 33%;
-    background-color: #007bff;
+    background-color: #457EC1;
 }
 
 .progress-2 {
     height: 25px;
     width: 66%;
-    background-color: #007bff;
+    background-color: #457EC1;
+}
+.progress-3 {
+    height: 25px;
+    width: 100%;
+    background-color: #457EC1;
+}
+
+
+#result-img {
+    margin-top: 40px;
 }

@@ -8,14 +8,19 @@
 </head>
 <body>
     <header>
-        <h1>Your Test Result</h1>
+        <h1>Completed</h1>
+        <div class="progress-bar">
+            <div class="progress-3"></div>
+        </div>
     </header>
+    <img src="result-img.jpg" alt="" id="result-img">
     <div class="container">
         
         <div id="result"></div>
         <p></p>
-        <a href="index.html" class="start-button">Take the Test Again</a>
+        
     </div>
+    <a href="index.html" class="start-button">Take the Test Again</a>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const urlParams = new URLSearchParams(window.location.search);

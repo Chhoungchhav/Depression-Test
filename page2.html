@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <h1>STSQs Questions</h1>
+        <h1>Sleep Timing and Sleep Quality Screening Questionnaire</h1>
         <div class="progress-bar">
             <div class="progress-2"></div>
         </div>
@@ -16,14 +16,41 @@
     <form id="surveyForm2" action="result.html" method="GET" onsubmit="return calculateFinalScore()">
         
         <div class="container">
-            <p>1. What time do you usually go to bed?</p>
-            <input type="time" name="q3" required>
+            <p>Q1: What time do you usually go to bed?</p>
+            <input type="time" name="q1" required>
         </div>
         
         <div class="container">
-            <p>2. How long does it take you to fall asleep on average?</p>
-            <input type="number" name="q2" min="0" step="1" required>
+            <p>Q2: What time do you usually try to sleep?</p>
+            <input type="time" name="q2" required>
+        </div>
+
+        <div class="container">
+            <p>Q3: How long does it take you to fall asleep on average?</p>
+            <input type="number" name="q3" min="0" step="1" required>
             <span>minutes</span>
+        </div>
+
+        <div class="container">
+            <p>Q4:  How many times do you usually wake up between sleep cycles? eg. waking up during the night because of a nightmare.</p>
+            <input type="number" name="q4" min="0" step="1" required>
+            <span>time(s)</span>
+        </div>
+
+        <div class="container">
+            <p>Q5:  What time do you usually wake up in the morning?</p>
+            <input type="time" name="q5" required>
+        </div>
+
+        <div class="container">
+            <p>Q6:  What time do you usually get up?</p>
+            <input type="time" name="q6" required>
+        </div>
+
+        <div class="container">
+            <p>Q7:  During the past 7 days, how would you rate your sleep quality overall?</p>
+            <input type="range" name="q7" min="0" max="10" step="1">
+            <span id="satisfactionValue">5</span>
         </div>
         <button type="submit">Submit</button>
     </form>
