@@ -1,78 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Result</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Result</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Completed</h1>
-        <div class="progress-bar">
-            <div class="progress-3"></div>
-        </div>
-    </header>
-    <img src="result-img.jpg" alt="" id="result-img">
-    <div class="container">
-        <h1>Survey Results</h1>
-        <div id="resultPage1" class="result"></div>
-        <div id="resultPage2" class="result"></div>
-        <div id="predictionResult" class="result"></div>
+  <header>
+    <h1>Completed</h1>
+    <div class="progress-bar">
+      <div class="progress-3"></div>
     </div>
-    <a href="index.html" class="start-button">Take the Test Again</a>
-    
-    <script>
-        // Function to load the ONNX model using ort (ONNX Runtime Web)
-        async function loadModel() {
-            const modelUrl = './model.onnx';
-            // Load the model using ort
-            const session = await ort.InferenceSession.create(modelUrl);
-            return session;
-        }
+  </header>
+  <img src="result-img.jpg" alt="Result Image" id="result-img">
+  <div class="container">
+    <h1>Survey Results</h1>
+    <div id="resultPage1" class="result"></div>
+    <div id="resultPage2" class="result"></div>
+    <div id="predictionResult" class="result"></div>
+  </div>
+  <a href="index.html" class="start-button">Take the Test Again</a>
 
-        // Function to get URL query parameters (used to get scores from the URL)
-        function getQueryParam(param) {
-            let urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
+  <script>
+    // Function to load the ONNX model
+    async function loadModel() {
+      try {
+        const session = await ort.InferenceSession.create('./model.onnx'); // Adjust the path if necessary
+        return session;
+      } catch (error) {
+        console.error("Error loading the model: ", error);
+        document.getElementById('predictionResult').innerText = "Model loading failed.";
+      }
+    }
 
-        // Function to make a prediction using the ONNX model
-        async function makePrediction(session) {
-            let scorePage1 = parseFloat(getQueryParam('scorePage1'));
-            let scorePage2 = parseFloat(getQueryParam('scorePage2'));
+    // Function to retrieve URL parameters (scorePage1 and scorePage2)
+    function getQueryParam(param) {
+      let urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
 
-            // Prepare input tensor for ONNX model
-            const inputTensor = new ort.Tensor('float32', [scorePage1, scorePage2], [1, 2]);
+    // Function to make a prediction using the ONNX model
+    async function makePrediction(session) {
+      try {
+        // Get scores from URL parameters
+        let scorePage1 = parseFloat(getQueryParam('scorePage1'));
+        let scorePage2 = parseFloat(getQueryParam('scorePage2'));
 
-            // Run inference using the input tensor
-            const feeds = { input: inputTensor }; // Adjust the input name based on your model's input name
-            const output = await session.run(feeds);
+        // Prepare input tensor for ONNX model
+        const inputTensor = new ort.Tensor('float32', [scorePage1, scorePage2], [1, 2]);
 
-            // Assuming the output contains the prediction in the first element
-            const prediction = output.values().next().value[0]; // Accessing the first prediction value
+        // Run inference
+        const feeds = { 'float_input': inputTensor }; // Ensure 'float_input' matches the actual input name
+        const output = await session.run(feeds);
 
-            // Display the prediction result
-            document.getElementById('predictionResult').innerText = `Prediction: ${prediction}`;
-        }
+        // Extract outputs (Ensure 'output_label' and 'output_probability' match the actual output names)
+        const labelTensor = output.get('output_label'); // Access by name (recommended)
+        const probabilityTensor = output.get('output_probability'); // Access by name (recommended)
 
-        // Main execution function
-        (async function() {
-            // Load the ONNX model
-            let session = await loadModel();
+        // Extract data from tensors
+        const label = labelTensor.data[0]; // For tensor with shape [0]
+        const probability = probabilityTensor.data[0]; // For scalar value
 
-            // Get scores from URL parameters
-            let scorePage1 = getQueryParam('scorePage1');
-            let scorePage2 = getQueryParam('scorePage2');
+        // Display prediction results
+        document.getElementById('predictionResult').innerText = `Prediction: Label = ${label}, Probability = ${probability}`;
+      } catch (error) {
+        console.error("Error during prediction: ", error);
+        document.getElementById('predictionResult').innerText = "Prediction failed.";
+      }
+    }
 
-            // Display scores on the result page
-            document.getElementById('resultPage1').innerText = `Page 1 Score: ${scorePage1}`;
-            document.getElementById('resultPage2').innerText = `Page 2 Score: ${scorePage2}`;
+    // Main function execution
+    (async function() {
+      // Load the ONNX model
+      let session = await loadModel();
 
-            // Make a prediction using the loaded model
-            await makePrediction(session);
-        })();
-    </script>
+      // Get and display the scores from URL parameters
+      let scorePage1 = getQueryParam('scorePage1');
+      let scorePage2 = getQueryParam('scorePage2');
+
+      document.getElementById('resultPage1').innerText = `Page 1 Score: ${scorePage1}`;
+      document.getElementById('resultPage2').innerText = `Page 2 Score: ${scorePage2}`;
+
+      // Make a prediction using the loaded model
+      if (session) {
+        await makePrediction(session);
+      }
+    })();
+  </script>
 </body>
 </html>
