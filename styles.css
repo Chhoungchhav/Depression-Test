@@ -7,7 +7,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 98.8%;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 header {
@@ -133,4 +136,9 @@ button:hover {
 
 #result-img {
     margin-top: 40px;
+}
+
+.custom-radio {
+    transform: scale(1.4); /* Adjust the scale value as needed */
+    margin-right: 5px; /* Optional: Add some space between the radio button and the label text */
 }
