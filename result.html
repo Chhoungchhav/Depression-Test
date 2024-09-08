@@ -1,93 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test Result</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Result</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Completed</h1>
-    <div class="progress-bar">
-      <div class="progress-3"></div>
+    <header>
+        <h1>Completed</h1>
+        <div class="progress-bar">
+            <div class="progress-3"></div>
+        </div>
+    </header>
+    <img src="result-img.jpg" alt="Result Image" id="result-img">
+    <div class="container">
+        <h1 style="font-size: 50px; color: white; font-weight: bold;">Your Result</h1>
+        <div id="resultPage1" class="result"></div>
+        <div id="resultPage2" class="result"></div>
+        <h1 id="predictionResult" class="result" style="font-size: 75px; color: white; font-weight: bold;"></h1>
     </div>
-  </header>
-  <img src="result-img.jpg" alt="Result Image" id="result-img">
-  <div class="container">
-    <h1>Survey Results</h1>
-    <div id="resultPage1" class="result"></div>
-    <div id="resultPage2" class="result"></div>
-    <div id="predictionResult" class="result"></div>
-  </div>
-  <a href="index.html" class="start-button">Take the Test Again</a>
+    <a href="index.html" class="start-button">Take the Test Again</a>
 
-  <script>
-    // Function to load the ONNX model
-    async function loadModel() {
-      try {
-        const session = await ort.InferenceSession.create('./model.onnx'); // Adjust the path if necessary
-        return session;
-      } catch (error) {
-        console.error("Error loading the model: ", error);
-        document.getElementById('predictionResult').innerText = "Model loading failed.";
-      }
-    }
+    <script>
+        // Function to load the ONNX model
+        async function loadModel() {
+            try {
+                console.log("Loading model...");
+                const session = await ort.InferenceSession.create('./model1.onnx'); // Adjust the path if necessary
+                console.log("Model loaded successfully.");
+                return session;
+            } catch (error) {
+                console.error("Error loading the model: ", error);
+                document.getElementById('predictionResult').innerText = "Model loading failed.";
+            }
+        }
 
-    // Function to retrieve URL parameters (scorePage1 and scorePage2)
-    function getQueryParam(param) {
-      let urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
+        // Function to retrieve URL parameters (scorePage1 and scorePage2)
+        function getQueryParam(param) {
+            let urlParams = new URLSearchParams(window.location.search);
+            let value = urlParams.get(param);
+            return value;
+        }
 
-    // Function to make a prediction using the ONNX model
-    async function makePrediction(session) {
-      try {
-        // Get scores from URL parameters
-        let scorePage1 = parseFloat(getQueryParam('scorePage1'));
-        let scorePage2 = parseFloat(getQueryParam('scorePage2'));
+        // Function to map the prediction to a depression category
+        function mapPredictionToCategory(label) {
+            if (label = 0) return "Minimal depression";
+            if (label = 1) return "Mild depression";
+            if (label = 2) return "Moderate depression";
+            if (label = 3) return "Moderately severe depression";
+            if (label = 4) return "Severe depression";
+            return "Unknown category";
+        }
 
-        // Prepare input tensor for ONNX model
-        const inputTensor = new ort.Tensor('float32', [scorePage1, scorePage2], [1, 2]);
+        // Function to make a prediction using the ONNX model
+        async function makePrediction(session) {
+            try {
+                // Get scores from URL parameters
+                let scorePage1 = parseFloat(getQueryParam('scorePage1'));
+                let scorePage2 = parseFloat(getQueryParam('scorePage2'));
 
-        // Run inference
-        const feeds = { 'float_input': inputTensor }; // Ensure 'float_input' matches the actual input name
-        const output = await session.run(feeds);
+                // Prepare input tensor for ONNX model
+                const inputTensor = new ort.Tensor('float32', [scorePage1, scorePage2], [1, 2]);
 
-        // Extract outputs (Ensure 'output_label' and 'output_probability' match the actual output names)
-        const labelTensor = output.get('output_label'); // Access by name (recommended)
-        const probabilityTensor = output.get('output_probability'); // Access by name (recommended)
+                // Run inference
+                const feeds = { 'float_input': inputTensor };
+                const output = await session.run(feeds);
 
-        // Extract data from tensors
-        const label = labelTensor.data[0]; // For tensor with shape [0]
-        const probability = probabilityTensor.data[0]; // For scalar value
+                // Extract output
+                const outputLabelTensor = output['output_label'];
 
-        // Display prediction results
-        document.getElementById('predictionResult').innerText = `Prediction: Label = ${label}, Probability = ${probability}`;
-      } catch (error) {
-        console.error("Error during prediction: ", error);
-        document.getElementById('predictionResult').innerText = "Prediction failed.";
-      }
-    }
+                if (outputLabelTensor) {
+                    const label = outputLabelTensor.data[0]; // Extract the label
 
-    // Main function execution
-    (async function() {
-      // Load the ONNX model
-      let session = await loadModel();
+                    // Map label to depression category
+                    const category = mapPredictionToCategory(label);
 
-      // Get and display the scores from URL parameters
-      let scorePage1 = getQueryParam('scorePage1');
-      let scorePage2 = getQueryParam('scorePage2');
+                    // Display prediction results
+                    document.getElementById('predictionResult').innerText = `${category}`;
+                } else {
+                    throw new Error("Unexpected output tensor");
+                }
+            } catch (error) {
+                console.error("Error during prediction: ", error);
+                document.getElementById('predictionResult').innerText = "Prediction failed.";
+            }
+        }
 
-      document.getElementById('resultPage1').innerText = `Page 1 Score: ${scorePage1}`;
-      document.getElementById('resultPage2').innerText = `Page 2 Score: ${scorePage2}`;
+        // Main function execution
+        (async function() {
+            // Load the ONNX model
+            let session = await loadModel();
 
-      // Make a prediction using the loaded model
-      if (session) {
-        await makePrediction(session);
-      }
-    })();
-  </script>
+            // Get and display the scores from URL parameters
+            let scorePage1 = getQueryParam('scorePage1');
+            let scorePage2 = getQueryParam('scorePage2');
+
+            document.getElementById('resultPage1').innerText = `Page 1 Score: ${scorePage1}`;
+            document.getElementById('resultPage2').innerText = `Page 2 Score: ${scorePage2}`;
+
+            // Make a prediction using the loaded model
+            if (session) {
+                await makePrediction(session);
+            }
+        })();
+    </script>
 </body>
 </html>
