@@ -47,11 +47,12 @@
 
         // Function to map the prediction to a depression category
         function mapPredictionToCategory(label) {
-            if (label = 0) return "Minimal depression";
-            if (label = 1) return "Mild depression";
-            if (label = 2) return "Moderate depression";
-            if (label = 3) return "Moderately severe depression";
-            if (label = 4) return "Severe depression";
+            const intLabel = Number(label); // Convert BigInt to a regular number
+            if (intLabel === 0) return "Minimal depression";
+            if (intLabel === 1) return "Mild depression";
+            if (intLabel === 2) return "Moderate depression";
+            if (intLabel === 3) return "Moderately severe depression";
+            if (intLabel === 4) return "Severe depression";
             return "Unknown category";
         }
 
