@@ -30,7 +30,7 @@ function calculateFinalScore() {
     let bedtime = form.querySelector('input[name="q2"]').value;
     let bedtimeHour = new Date(`1970-01-01T${bedtime}:00`).getHours();
 
-    if (bedtimeHour < 23) scoreArray.push(0);
+    if (bedtimeHour > 19 && bedtimeHour < 23) scoreArray.push(0);
     else if (bedtimeHour === 0) scoreArray.push(1);
     else scoreArray.push(2);
 
@@ -38,7 +38,7 @@ function calculateFinalScore() {
     let wakeupTime = form.querySelector('input[name="q5"]').value;
     let wakeupHour = new Date(`1970-01-01T${wakeupTime}:00`).getHours();
 
-    if (wakeupHour <= 7) scoreArray.push(0);
+    if (wakeupHour >=4 && wakeupHour <= 7) scoreArray.push(0);
     else if (wakeupHour == 8) scoreArray.push(1);
     else scoreArray.push(2);
 
@@ -46,7 +46,7 @@ function calculateFinalScore() {
     let getUpTime = form.querySelector('input[name="q6"]').value;
     let getUpHour = new Date(`1970-01-01T${getUpTime}:00`).getHours();
 
-    if (getUpHour <= 8) scoreArray.push(0);
+    if (getUpHour >=4 && getUpHour <= 8) scoreArray.push(0);
     else if (getUpHour == 9) scoreArray.push(1);
     else scoreArray.push(2);
 
